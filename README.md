@@ -110,6 +110,13 @@ On computational clusters, you can start worker batch jobs in a similar manner.
 
 You can start as many workers as your system allows. The workers will pull jobs from the queue and evaluate them. When no more jobs are open, the workers will terminate.
 
+You can also evaluate jobs in the master R session by sourcing the `redis/worker.R` script.
 
+# Evaluating simulation results
+Simulation results can be retrieved and analyzed at any moment in time, returning all job results that have been completed up to that moment. All simulation scenario analysis scripts are located inside the `experiments` folder, prefixed by `analysis_`.
 
-
+## Retrieving results
+Methods output their results as a named list of scalar values. Results can therefore be easily combined into a table. All evaluated cases can be retrieved as a single `data.table` object using the `experiment_getOutputTable()` function.
+```
+results_normal_all = experiment_getOutputTable('normal_known')
+```
