@@ -47,7 +47,7 @@ WIP
 ## Starting Redis server
 You need to start the Redis server before you can run simulations or retrieve simulation results.
 
-The Redis configuration file included in the repository configures a server on port 6379 with password "password" and database saved to `redis/database.rdb`. A server password is required because the simulation R code connects to Redis using authentication.
+The Redis configuration file included in the repository [here](https://github.com/philips-labs/comparison-clustering-longitudinal-data/blob/main/redis/redis.conf) configures a server on port 6379 with password "password" and database saved to `redis/database.rdb`. A server password is required because the simulation R code connects to Redis using authentication.
 
 ### Windows
 In order to start the Redis server on Windows, run `redis.bat`. Alternatively, you can open the command line in the root repository directory and execute `redis-server redis/redis.conf`
