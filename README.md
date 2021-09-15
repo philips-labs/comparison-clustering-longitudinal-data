@@ -47,23 +47,31 @@ WIP
 ## Starting Redis server
 You need to start the Redis server before you can run simulations or retrieve simulation results.
 
+The Redis configuration file included in the repository configures a server on port 6379 with password "password" and database saved to `redis/database.rdb`. A server password is required because the simulation R code connects to Redis using authentication.
+
 ### Windows
 In order to start the Redis server on Windows, run `redis.bat`. Alternatively, you can open the command line in the root repository directory and execute `redis-server redis/redis.conf`
 If everything is configured correctly, you should see the following window:
 ![image](https://user-images.githubusercontent.com/8193083/133419959-81d09c0d-2d8d-4392-8d66-ef09d95d8fb4.png)
 
+If no window shows up, that indicates the Redis server failed to start. First check if the database directory path exists.
+
 ### Unix
+From the root directory of the repository, run
 ```
 redis-server redis/redis.conf
 ```
-## Redis configuration
-WIP
 
+### Connect to Redis
+After you have confirmed that the Redis server is running and you have opened an R session with all scripts loaded, connect to Redis in R by running `redis_connect()`. You should see the message "_Connected to Redis at localhost:6379._".
 
+# Running simulations
+To start a simulation worker, run `worker.bat`. For this to work, `R` needs to be in your `PATH` environment variable.
+On Linux, in the command line from the repository directory, run
+```
+R --slave -f redis/worker.R
+```
+On computational clusters, you can start worker batch jobs in a similar manner.
 
-1. in `redis.conf`, update the dir variable to the directory containing the database
-2a. Create text file with "HOSTNAME PORT" content
-2b. set the `REDIS_HOST_FILE` variable in R to point to the text file
-3. set the `REDIS_PWD` variable in R
+You can start as many workers as your system allows. The workers will pull jobs from the queue and evaluate them. When no more jobs are open, the workers will terminate.
 
-To start a simulation worker, run `R --slave -f redis/worker.R` in the command line, from the code directory
