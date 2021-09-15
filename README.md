@@ -9,7 +9,7 @@ The complete database of simulation results (600 MB) is available upon request.
 1. Either load the Rstudio project file `comparison.Rproj`, or start an R session with the working directory set to the root repository directory.
 2. Install required packages and dependencies
 ```
-install.packages(c("assertthat", "data.table", "ggplot2", "mvnfast", "magrittr", "multcompView", "rredis", "scales"), dependencies = TRUE)
+install.packages(c("assertthat", "data.table", "effects", "ggplot2", "igraph", "latex2exp", "lpSolve", "memoise", "mvnfast", "magrittr", "multcompView", "nlme", "polynom", "R.utils", "rredis", "scales", "weights"), dependencies = TRUE)
 ```
 3. Create an `.Rprofile` file with the following content:
 ```
