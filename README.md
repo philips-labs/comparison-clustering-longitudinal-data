@@ -66,6 +66,40 @@ redis-server redis/redis.conf
 After you have confirmed that the Redis server is running and you have opened an R session with all scripts loaded, connect to Redis in R by running `redis_connect()`. You should see the message "_Connected to Redis at localhost:6379._".
 
 # Running simulations
+All simulation scenarios described in the manuscript are located inside the `experiments` folder. Simulation scenarios are defined in R scripts prefixed by `exp_`.
+
+## Generating simulation settings
+As an example, the simulation settings for the scenario involving a known number of clusters are defined and generated in [exp_normal_known.R](https://github.com/philips-labs/comparison-clustering-longitudinal-data/blob/main/experiments/exp_normal_known.R).
+
+Specifically, the scenario with two-cluster dataset with quadratic trends and varying number of trajetories, observations, random effects, and noise, are generated using:
+```
+cases_normal2 = expand.grid(
+                       data=c('longdata_randquad2'),
+                       model=c('longmodel_kml', 'longmodel_gcm2km', 'longmodel_gbtm2', 'longmodel_gmm2', 'longmodel_mixtvem_nugget'),
+                       numtraj=c(200, 500, 1000),
+                       numobs=c(4, 10, 25),
+                       numclus=2,
+                       re=c(RE_NORM_LOW, RE_NORM_MED, RE_NORM_HIGH),
+                       noise=c(.01, .1),
+                       dataseed=1:100,
+                       seed=1) %>% as.data.table %T>% print
+```
+The model names passed through the `model` argument are names of the functions defined in the `methods` folder. This makes it relatively easy to define and evaluate new methods.
+Providing `dataseed=1:100` results in 100 different datasets being generated.
+
+## Queueing simulation jobs
+After generating the table of simulation settings, we can submit them to the job queue using the `experiment_submit()` function. Only jobs which have not been previously evaluated are added.
+```
+redis_connect() # connect to Redis first
+experiment_submit(name='normal_known', cases=cases_normal2)
+```
+
+![image](https://user-images.githubusercontent.com/8193083/133441363-b30a6a9e-efa8-40f1-8b41-17151b8690a8.png)
+
+
+## Starting parallel workers
+The submitted jobs now need to be evaluated. This evaluation is done by worker instances.
+
 To start a simulation worker on Windows, run `worker.bat`. 
 However, for this to work, `R` needs to be in your `PATH` environment variable so Windows can locate the R executable file.
 On Linux, in the command line from the repository directory, run
@@ -75,4 +109,7 @@ R --slave -f redis/worker.R
 On computational clusters, you can start worker batch jobs in a similar manner.
 
 You can start as many workers as your system allows. The workers will pull jobs from the queue and evaluate them. When no more jobs are open, the workers will terminate.
+
+
+
 
