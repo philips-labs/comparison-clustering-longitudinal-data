@@ -132,4 +132,7 @@ Simulation results can be retrieved and analyzed at any moment in time, returnin
 Methods output their results as a named list of scalar values. Results can therefore be easily combined into a table. All evaluated cases can be retrieved as a single `data.table` object using the `experiment_getOutputTable()` function.
 ```
 results_normal_all = experiment_getOutputTable('normal_known')
+
+head(results_normal_all)
 ```
+![image](https://user-images.githubusercontent.com/8193083/133449699-20c063b7-85fa-4115-908a-8ccf36bee748.png)
