@@ -66,7 +66,8 @@ redis-server redis/redis.conf
 After you have confirmed that the Redis server is running and you have opened an R session with all scripts loaded, connect to Redis in R by running `redis_connect()`. You should see the message "_Connected to Redis at localhost:6379._".
 
 # Running simulations
-To start a simulation worker, run `worker.bat`. For this to work, `R` needs to be in your `PATH` environment variable.
+To start a simulation worker on Windows, run `worker.bat`. 
+However, for this to work, `R` needs to be in your `PATH` environment variable so Windows can locate the R executable file.
 On Linux, in the command line from the repository directory, run
 ```
 R --slave -f redis/worker.R
