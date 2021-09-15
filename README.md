@@ -112,6 +112,19 @@ You can start as many workers as your system allows. The workers will pull jobs 
 
 You can also evaluate jobs in the master R session by sourcing the `redis/worker.R` script.
 
+## Helper functions
+Jobs
+```
+job_monitor() # monitor number of remaining jobs over time
+job_count() # returns number of open jobs
+job_clear() # clear the job queue
+```
+Experiments
+```
+experiment_names() # get list of evaluated experiments
+experiment_delete(name) # delete all results of the respective experiment
+```
+
 # Evaluating simulation results
 Simulation results can be retrieved and analyzed at any moment in time, returning all job results that have been completed up to that moment. All simulation scenario analysis scripts are located inside the `experiments` folder, prefixed by `analysis_`.
 
