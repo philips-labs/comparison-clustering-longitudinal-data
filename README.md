@@ -6,33 +6,61 @@ As the simulation study involves many simulation settings (over 27,000) and the 
 The complete database of simulation results (600 MB) is available upon request.
 
 # Getting started
-1. Create an `.Rprofile` file specifying the paths:
+1. Either load the Rstudio project file `comparison.Rproj`, or start an R session with the working directory set to the root repository directory.
+2. Install required packages and dependencies
+```
+install.packages(c("assertthat", "data.table", "ggplot2", "mvnfast", "magrittr", "multcompView", "rredis", "scales"), dependencies = TRUE)
+```
+3. Create an `.Rprofile` file with the following content:
 ```
 FIG_DIR <- 'figs' # directory to export figures to
 TAB_DIR <- 'tabs' # directory to export model coefficient tables to
 OSU_USAGE_DATA_FILE <- '../data/<rds file name>'
 CASE_OSU_RESULTS_DIR <- '../caseresults' # directory where to store the models
+
+REDIS_HOST_FILE <- 'redis/localhost.txt' # file specifying hostname and port
+REDIS_PWD <- 'password' # server AUTH password
+
+source('include.R')
 ```
-2. Either load the Rstudio project file `comparison.Rproj`, or start an R session with the working directory set to the root repository directory.
-3. Load the required packages and functions by running `source('include.R')` in R. Likely you will need to install missing packages first.
+Change file and directory paths as needed.
+
+4. Restart the R session. This should now automatically run the `.Rprofile` file, which you can tell by the output in the console on start-up. The `include.R` script loads all required packages and functions.
 
 You should now be able to run all functions and scripts. Running simulation studies requires a Redis database server to be configured.
 
 
 # Redis database
-WIP
-
 The Redis database stores the open jobs as well as the results of completed jobs. Parallel workers fetch jobs from the Redis queue, and store result in the respective experiment set. The benefit of storing results in the database is that it avoids the rather large file system overhead from saving thousands of small result files.
 
-## Installing Redis
+## Installing Redis server
 ### Windows
-WIP
+1. Download the Redis binaries. Older binaries are available at https://github.com/microsoftarchive/redis/ ([download link](https://github.com/microsoftarchive/redis/releases/download/win-3.2.100/Redis-x64-3.2.100.msi))
+2. Install Redis
+    1. Make sure Redis is added to your system's `PATH` environment variable.
+    2. Let Redis use the default port (6379).
+
 ### Unix
 WIP
 1. set `BASEDIR` in `redis.ksh`
 
+## Starting Redis server
+You need to start the Redis server before you can run simulations or retrieve simulation results.
+
+### Windows
+In order to start the Redis server on Windows, run `redis.bat`. Alternatively, you can open the command line in the root repository directory and execute `redis-server redis/redis.conf`
+If everything is configured correctly, you should see the following window:
+![image](https://user-images.githubusercontent.com/8193083/133419959-81d09c0d-2d8d-4392-8d66-ef09d95d8fb4.png)
+
+### Unix
+```
+redis-server redis/redis.conf
+```
 ## Redis configuration
 WIP
+
+
+
 1. in `redis.conf`, update the dir variable to the directory containing the database
 2a. Create text file with "HOSTNAME PORT" content
 2b. set the `REDIS_HOST_FILE` variable in R to point to the text file
