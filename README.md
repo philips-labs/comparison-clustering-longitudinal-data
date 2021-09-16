@@ -5,6 +5,12 @@ As the simulation study involves many simulation settings (over 27,000) and the 
 
 The complete database of simulation results (600 MB) is available upon request.
 
+# Useful links
+* MixTVEM source code used in the simulation study - https://github.com/dziakj1/MixTVEM
+* _lcmm_ R package, used for estimating GMM and GBTM - https://cran.r-project.org/package=lcmm
+* _kml_ R package, used for estimating KmL - https://cran.r-project.org/package=kml
+* _latrend_ R package: The longitudinal clustering framework that we have created, originating from the learnings of this work - https://github.com/philips-software/latrend
+
 # Getting started
 1. Either load the Rstudio project file `comparison.Rproj`, or start an R session with the working directory set to the root repository directory.
 2. Install required packages and dependencies
