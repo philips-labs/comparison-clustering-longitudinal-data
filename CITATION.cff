@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Den Teuling"
+    given-names: "Niek"
+    orcid: "https://orcid.org/0000-0003-1026-5080"
+  - family-names: "Pauws"
+    given-names: "Steffen"
+    orcid: "https://orcid.org/0000-0003-2257-9239"
+  - family-names: "van den Heuvel"
+    given-names: "Edwin"
+    orcid: "https://orcid.org/0000-0001-9157-7224"
+  doi: "10.1080/03610918.2020.1861464"
+  journal: "Communications in Statistics - Simulation and Computation"
+  month: 1
+  start: 1 # First page number
+  end: 28 # Last page number
+  title: "A comparison of methods for clustering longitudinal data with slowly changing trends"
+  volume: 0
+  number: 0
+  year: 2021
