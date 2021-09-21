@@ -4,13 +4,13 @@ preferred-citation:
   type: article
   authors:
   - family-names: "Den Teuling"
-    given-names: "Niek"
+    given-names: "Niek G. P."
     orcid: "https://orcid.org/0000-0003-1026-5080"
   - family-names: "Pauws"
-    given-names: "Steffen"
+    given-names: "Steffen C."
     orcid: "https://orcid.org/0000-0003-2257-9239"
   - family-names: "van den Heuvel"
-    given-names: "Edwin"
+    given-names: "Edwin R."
     orcid: "https://orcid.org/0000-0001-9157-7224"
   doi: "10.1080/03610918.2020.1861464"
   journal: "Communications in Statistics - Simulation and Computation"
