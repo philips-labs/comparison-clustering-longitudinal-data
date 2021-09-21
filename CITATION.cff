@@ -18,6 +18,4 @@ preferred-citation:
   start: 1 # First page number
   end: 28 # Last page number
   title: "A comparison of methods for clustering longitudinal data with slowly changing trends"
-  volume: 0
-  number: 0
   year: 2021
