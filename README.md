@@ -14,11 +14,11 @@ The complete database of simulation results (600 MB) is available upon request.
 # Getting started
 1. Either load the Rstudio project file `comparison.Rproj`, or start an R session with the working directory set to the root repository directory.
 2. Install required packages and dependencies
-```
+```R
 install.packages(c("assertthat", "data.table", "effects", "ggplot2", "igraph", "kml", "latex2exp", "lcmm", "lpSolve", "memoise", "mvnfast", "magrittr", "multcompView", "nlme", "polynom", "R.utils", "rredis", "scales", "weights"), dependencies = TRUE)
 ```
 3. Create an `.Rprofile` file with the following content:
-```
+```R
 FIG_DIR <- 'figs' # directory to export figures to
 TAB_DIR <- 'tabs' # directory to export model coefficient tables to
 OSU_USAGE_DATA_FILE <- '../data/<rds file name>'
@@ -78,26 +78,29 @@ All simulation scenarios described in the manuscript are located inside the `exp
 As an example, the simulation settings for the scenario involving a known number of clusters are defined and generated in [exp_normal_known.R](https://github.com/philips-labs/comparison-clustering-longitudinal-data/blob/main/experiments/exp_normal_known.R).
 
 Specifically, the scenario with two-cluster dataset with quadratic trends and varying number of trajetories, observations, random effects, and noise, are generated using:
-```
-cases_normal2 = expand.grid(
-                       data=c('longdata_randquad2'),
-                       model=c('longmodel_kml', 'longmodel_gcm2km', 'longmodel_gbtm2', 'longmodel_gmm2', 'longmodel_mixtvem_nugget'),
-                       numtraj=c(200, 500, 1000),
-                       numobs=c(4, 10, 25),
-                       numclus=2,
-                       re=c(RE_NORM_LOW, RE_NORM_MED, RE_NORM_HIGH),
-                       noise=c(.01, .1),
-                       dataseed=1:100,
-                       seed=1) %>% as.data.table %T>% print
+```R
+cases_normal2 <- expand.grid(
+    data = c('longdata_randquad2'),
+    model = c('longmodel_kml', 'longmodel_gcm2km', 'longmodel_gbtm2', 'longmodel_gmm2', 'longmodel_mixtvem_nugget'),
+    numtraj = c(200, 500, 1000),
+    numobs = c(4, 10, 25),
+    numclus = 2,
+    re = c(RE_NORM_LOW, RE_NORM_MED, RE_NORM_HIGH),
+    noise = c(.01, .1),
+    dataseed = 1:100,
+    seed = 1
+) %>% 
+    as.data.table() %T>% 
+    print()
 ```
 The model names passed through the `model` argument are names of the functions defined in the `methods` folder. This makes it relatively easy to define and evaluate new methods.
-Providing `dataseed=1:100` results in 100 different datasets being generated.
+Providing `dataseed = 1:100` results in 100 different datasets being generated.
 
 ## Queueing simulation jobs
 After generating the table of simulation settings, we can submit them to the job queue using the `experiment_submit()` function. Only jobs which have not been previously evaluated are added.
-```
+```R
 redis_connect() # connect to Redis first
-experiment_submit(name='normal_known', cases=cases_normal2)
+experiment_submit(name = 'normal_known', cases = cases_normal2)
 ```
 
 ![image](https://user-images.githubusercontent.com/8193083/133441363-b30a6a9e-efa8-40f1-8b41-17151b8690a8.png)
@@ -120,13 +123,13 @@ You can also evaluate jobs in the master R session by sourcing the `redis/worker
 
 ## Helper functions
 Jobs
-```
+```R
 job_monitor() # monitor number of remaining jobs over time
 job_count() # returns number of open jobs
 job_clear() # clear the job queue
 ```
 Experiments
-```
+```R
 experiment_names() # get list of evaluated experiments
 experiment_delete(name) # delete all results of the respective experiment
 ```
@@ -136,8 +139,8 @@ Simulation results can be retrieved and analyzed at any moment in time, returnin
 
 ## Retrieving results
 Methods output their results as a named list of scalar values. Results can therefore be easily combined into a table. All evaluated cases can be retrieved as a single `data.table` object using the `experiment_getOutputTable()` function.
-```
-results_normal_all = experiment_getOutputTable('normal_known')
+```R
+results_normal_all <- experiment_getOutputTable('normal_known')
 
 head(results_normal_all)
 ```
