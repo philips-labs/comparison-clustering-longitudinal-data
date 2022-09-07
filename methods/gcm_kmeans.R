@@ -6,6 +6,7 @@ longclus_gcm_kmeans = function(tsdata, numclus, numruns=1,
                                standardize=FALSE, #standardize the parameters prior to clustering #TODO set to true
                                store='all',
                                seed=NULL) {
+    tsdata = as.data.table(tsdata)
     set.seed(seed)
     ids = unique(tsdata$Id)
     start = Sys.time()
