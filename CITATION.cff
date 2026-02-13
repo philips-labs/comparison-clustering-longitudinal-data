@@ -18,3 +18,4 @@ preferred-citation:
   end: 28 # Last page number
   title: "A comparison of methods for clustering longitudinal data with slowly changing trends"
   year: 2021
+  url: "https://github.com/niekdt/comparison-clustering-longitudinal-data"
