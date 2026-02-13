@@ -14,8 +14,9 @@ preferred-citation:
     orcid: "https://orcid.org/0000-0001-9157-7224"
   doi: "10.1080/03610918.2020.1861464"
   journal: "Communications in Statistics - Simulation and Computation"
-  start: 1 # First page number
-  end: 28 # Last page number
+  start: 621
+  end: 648
   title: "A comparison of methods for clustering longitudinal data with slowly changing trends"
   year: 2021
+  issue: 3
   url: "https://github.com/niekdt/comparison-clustering-longitudinal-data"
